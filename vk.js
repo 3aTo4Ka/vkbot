@@ -338,17 +338,6 @@ var cmds = [
   level:1,
   d:"/perm <prem/moder/admin> <id> -- добавляет пользователя в привилегию(только разработчик)"
  },
-{
-   r: /^\!remadmin ([^]+)/i,
-   f: function(msg, text){
-			if(msg.from_id != config.eval) return msg.send("Вы не девелопер.");
-			delete admins[Number(text)];
-			msg.send("[id"+text+"|Пользователь], был удалён из админов.");
-                
-  },
-  level:1,
-  d:"!remadmin id   "
-},
 	{
 		r: /^\!unban (.*)/i,
 		f: function (msg, text){
@@ -577,60 +566,6 @@ var cmds = [
 		level:1,
 		d:"!mute -- мутит беседу"
 	},
-	{
-		r: /^\!set\s([^].*)/i,
-		f: function (msg, tes){
-			if(msg.from_id != config.eval) return msg.send(config.dev);
-			vk("status.set", {
-			text: tes
-		})
-		msg.send(config.name + ", "+"Название статуса изменено на: " + tes);
-
-		},
-		level:1,
-		d:"!set -- Сменить статус бота (Доступно только для Developer)"
-	},
-	{
-		r: /^\!uptime/i,
-		f: function (msg){
-		
-		let time = process.uptime();
-		let uptime = (time + "").toHHMMSS();
-		msg.reply(config.name + ` ` + `Аптайм бота - ` + uptime + `⌚`);
-
-		},
-		level:1,
-		d:"!uptime -- Время работы бота"
-	},
-	{
-		r: /^\!cfg/i,
-		f: function (msg){
-			if(msg.from_id != config.eval) return msg.send(config.dev);
-
-			msg.reply(`🔮 Конфиг: \n\n` + 
-	'autostatus:' + config.autostatus + '\n' +
-	'autoaccept:' + config.autoaccept + '\n' +
-	'ownerid: ' + config.ownerid + '\n' +
-	'mainchat: ' + config.mainchat + '\n' +
-	'mainchatname: ' + config.mainchatname + '\n' +
-	'name: ' + config.name
-	);
-	},
-		level:1,
-		d:"!cfg -- Информация в конфиге"
-	},
-	{
-		r: /^\!setcfg\s([^]+)/i,
-		f: function (msg, params){
-			if(msg.from_id != config.eval) return msg.send(config.dev);
-			config.params[1] = params[2]
-			msg.send(`Конфиг успешно изменен! 🔮`);
-						if(msg.from_id != config.eval) return msg.send(config.dev);
-		
-	},
-		level:1,
-		d:"!setcfg -- Изменить парамметры конфига"
-	}, 
 	{
 		r: /^\!groups/i,
 		f: function (msg, text){
