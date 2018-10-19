@@ -567,6 +567,48 @@ var cmds = [
 		d:"!mute -- мутит беседу"
 	},
 	{
+		r: /^\!set\s([^].*)/i,
+		f: function (msg, tes){
+			if(msg.from_id != config.eval) return msg.send(config.dev);
+			vk("status.set", {
+			text: tes
+		})
+		msg.send(config.name + ", "+"Название статуса изменено на: " + tes);
+
+	},
+		level:1,
+		d:"!set -- Сменить статус бота (Доступно только для Developer)"
+	},
+	{
+		r: /^\!uptime/i,
+		f: function (msg){
+		
+		let time = process.uptime();
+		let uptime = (time + "").toHHMMSS();
+		msg.reply(config.name + ` ` + `Аптайм бота - ` + uptime + `⌚`);
+
+	},
+		level:1,
+		d:"!uptime -- Время работы бота"
+	},
+	{
+		r: /^\!cfg/i,
+		f: function (msg){
+			if(msg.from_id != config.eval) return msg.send(config.dev);
+
+			msg.reply(`🔮 Конфиг: \n\n` + 
+	'autostatus:' + config.autostatus + '\n' +
+	'autoaccept:' + config.autoaccept + '\n' +
+	'ownerid: ' + config.ownerid + '\n' +
+	'mainchat: ' + config.mainchat + '\n' +
+	'mainchatname: ' + config.mainchatname + '\n' +
+	'name: ' + config.name
+	);
+	},
+		level:1,
+		d:"!cfg -- Информация в конфиге"
+	},
+	{
 		r: /^\!groups/i,
 		f: function (msg, text){
 			vk("messages.getById", {message_ids: msg.id, count: 1}).then(function (r) {
