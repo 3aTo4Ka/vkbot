@@ -1,7 +1,6 @@
 // Модули 
 var fs = require("fs");
 const config = require("./settings/config.js")
-const cmsa = fs.readdirSync("./cmd").filter(x => x.endsWith(".js")).map(x => require("./cmd/" + x));
 const request = require("request");
 const os = require("os");
 const punycode = require('punycode');
